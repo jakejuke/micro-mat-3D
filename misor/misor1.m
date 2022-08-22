@@ -4,9 +4,9 @@ function [phi, n, dr] = misor1(U)
 %
 %   EXAMPLE:
 %       [phi, n, dr] = misor1(U)
-%   
-%   
+%
 %   By Jules Dake, Uni Ulm, Germany.
+%
 
 phi = acosd((U(1,1) + U(2,2) + U(3,3) - 1)/2);
 dr = U2r(U);
