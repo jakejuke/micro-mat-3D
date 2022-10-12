@@ -7,24 +7,24 @@ This repository contains scripts and functions (mostly in MATLAB) used to analyz
 
 # Repository Structure
 
-## data
+### data
 Contains example datasets
 
-## exchange
+### exchange
 Functions barrowed from the [Matlab File Exchange](https://de.mathworks.com/matlabcentral/fileexchange/)
 
-## fun3d
+### fun3d
 Functions to analyze and displace 3D microstructures
 
-## misc
+### misc
 Miscellaneous functions for plotting, saving, etc.
 
-## misor
+### misor
 Functions for calculating orientations and misorientations
 
-## sp8_scripts
+### sp8_scripts
 Some scripts used to analyze SPring-8 datasets
 
-## xtras
+### xtras
 Extra code snippets that could be useful
 
