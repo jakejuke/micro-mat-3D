@@ -4,8 +4,10 @@ function [full3Ds, fullGTs] = sp8_cleandata(full3Ds, fullGTs)
 %   This function finds the largest connected volume of each grain label
 %   and fills any holes in that volume. If there are voxels that are not
 %   connected to the largest volume, these are set to zero (I think, I'm
-%   writing this description long after writing the function). Values
-%   (centroid, volume and radius) for each grain are also calculated.
+%   writing this description long after writing the function).
+%   
+%   Some grain parameters (centroid, volume and radius) for each grain are
+%   also calculated.
 %   
 %   
 %   EXAMPLE:
@@ -16,6 +18,8 @@ function [full3Ds, fullGTs] = sp8_cleandata(full3Ds, fullGTs)
 %   Uni Ulm
 %   
 
+% volume cutoff - if the largest region has less than 95% of the total
+% volume for a given grain label, then a warning message is displayed
 volCut = 0.95;
 
 % FOR all data sets
