@@ -13,6 +13,8 @@ The data needs to be in the form:
 
 Initial Analysis
 - sp8_cleandata: fills any holes and determines basic grain parameters (e.g. gradius)
+- sp8_gbVoxelList: finds all GB voxels
+- sp8_gbAreaMat: takes voxel list and returns GB areas for all neighbors of every grain
 
 
 # Repository Structure
