@@ -16,6 +16,10 @@ else
     full3Ds{1} = A;
 end
 
+% Set fields for grainTable
+grainTable = struct('timestep',[],'old',[],'labels',[],'orient',[],...
+    'centroid',[],'volume',[],'gradius',[]);
+
 % Find max grain label
 maxLabel = 0;
 for R = 1:length(full3Ds)
@@ -27,16 +31,10 @@ end
 
 grainLabels = (1:maxLabel)';
 
+tempMat1 = nan(maxLabel,1);
+tempMat3 = nan(maxLabel,3);
 
-% Set fields for grainTable
-grainTable = struct('labels',nan(maxLabel,1),...
-                    'orient',nan(maxLabel,3),...
-                    'old',nan(maxLabel,3),...
-                    'centroid',nan(maxLabel,3),...
-                    'volume',nan(maxLabel,1),...
-                    'gradius',nan(maxLabel,1));
-
-
+% get region props
 for R = 1:length(full3Ds)
     % Write grain labels to grain table
     currentLabels = unique(full3Ds{R});
@@ -46,8 +44,14 @@ for R = 1:length(full3Ds)
     s = regionprops(full3Ds{R});
     sLength = length([s.Area]);
 
+    grainTable(R).centroid = tempMat3;
     c = vertcat(s.Centroid);
     grainTable(R).centroid(1:sLength,:) = c;
+
+    grainTable(R).volume = tempMat1;
+    v = vertcat(s.Area);
+    % BUG - writes zeros volume... need nan's here
+    grainTable(R).volume(1:sLength) = v;
 end
 
 
