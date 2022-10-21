@@ -38,7 +38,7 @@ tempMat3 = nan(maxLabel,3);
 for R = 1:length(full3Ds)
     % Write grain labels to grain table
     currentLabels = unique(full3Ds{R});
-    grainTable(R).labels = grainLabels;
+    grainTable(R,1).labels = grainLabels;
     grainTable(R).labels(~ismember(grainLabels,currentLabels)) = nan;
 
     s = regionprops(full3Ds{R});
@@ -50,8 +50,10 @@ for R = 1:length(full3Ds)
 
     grainTable(R).volume = tempMat1;
     v = vertcat(s.Area);
-    % BUG - writes zeros volume... need nan's here
+    v(v==0) = nan;
     grainTable(R).volume(1:sLength) = v;
+
+    grainTable(R).gradius = (grainTable(R).volume * 0.75/pi).^(1/3);
 end
 
 
