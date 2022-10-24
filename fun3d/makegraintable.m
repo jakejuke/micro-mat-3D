@@ -1,12 +1,16 @@
-function grainTable = makegraintable(A,varargin)
-%makegraintable Make grain table(s) from 3D matrix of grain labels
+function grainTable = makeGrainTable(A,varargin)
+%makeGrainTable Make grain table(s) for 3D grain data
 %
 %   Detailed explanation goes here
-
-%% Options
+%
+%   Options
 % 
-% Relabel grains from 1 to max number of regions
+%   Relabel grains from 1 to max number of regions
+%   Generate random orientations (to be coded)
 % 
+%   Jules Dake
+%   Uni Ulm, Oct 24 2022
+%
 
 
 % If input A is not a cell array, make a 1x1 cell array
@@ -14,6 +18,23 @@ if iscell(A)
     full3Ds = A;
 else
     full3Ds{1} = A;
+end
+
+% Parse input variables
+p = inputParser;
+
+defaultRelabel = false;
+defaultGenOrient = true;
+
+addRequired(p,'A');
+addParameter(p,'relabel',defaultRelabel,@islogical)
+addParameter(p,'genOrient',defaultGenOrient,@islogical)
+
+% Relabel from 1 to max number of grains
+if relabel
+    for R=1:length(full3Ds)
+        full3Ds{R} = relabelGrainMat(full3Ds{R});
+    end
 end
 
 % Set fields for grainTable
@@ -34,13 +55,18 @@ grainLabels = (1:maxLabel)';
 tempMat1 = nan(maxLabel,1);
 tempMat3 = nan(maxLabel,3);
 
-% get region props
+
+% Get region props for each 3D dataset
 for R = 1:length(full3Ds)
+
     % Write grain labels to grain table
     currentLabels = unique(full3Ds{R});
     grainTable(R,1).labels = grainLabels;
     grainTable(R).labels(~ismember(grainLabels,currentLabels)) = nan;
 
+    % If the grain with the largest grain label is not in the current
+    % dataset, then the length of s could be shorter than the length of the
+    % grain labels. This is why I write from 1 to sLength below.
     s = regionprops(full3Ds{R});
     sLength = length([s.Area]);
 
