@@ -13,12 +13,16 @@ function grainTable = makeGrainTable(A,varargin)
 %
 
 
+% Min/max value of Rodrigues vectors
+minmaxR = (sqrt(2)-1);
+
 % If input A is not a cell array, make a 1x1 cell array
 if iscell(A)
     full3Ds = A;
 else
     full3Ds{1} = A;
 end
+
 
 % Parse input variables
 p = inputParser;
@@ -43,9 +47,11 @@ if relabel
     end
 end
 
+
 % Set fields for grainTable
 grainTable = struct('timestep',[],'old',[],'labels',[],'orient',[],...
     'centroid',[],'volume',[],'gradius',[]);
+
 
 % Find max grain label
 maxLabel = 0;
@@ -58,9 +64,16 @@ end
 
 grainLabels = (1:maxLabel)';
 
+if genOrient
+    % generate random numbers for orientations
+    randOrients = rand(length(grainLabels),3);
+    % rescale for fundamental zone
+    randOrients = (randOrients - 0.5)*minmaxR/0.5;
+end
+
+
 tempMat1 = nan(maxLabel,1);
 tempMat3 = nan(maxLabel,3);
-
 
 % Get region props for each 3D dataset
 for R = 1:length(full3Ds)
@@ -69,6 +82,13 @@ for R = 1:length(full3Ds)
     currentLabels = unique(full3Ds{R});
     grainTable(R,1).labels = grainLabels;
     grainTable(R).labels(~ismember(grainLabels,currentLabels)) = nan;
+
+    if genOrient
+        % Write random grain orientations
+        grainTable(R).orient = randOrients;
+        grainTable(R).orient(isnan(grainTable(R).labels),:) = NaN;
+    end
+    grainTable(R).old = grainTable(R).orient;
 
     % If the grain with the largest grain label is not in the current
     % dataset, then the length of s could be shorter than the length of the
