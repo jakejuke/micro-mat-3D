@@ -30,6 +30,12 @@ addRequired(p,'A');
 addParameter(p,'relabel',defaultRelabel,@islogical)
 addParameter(p,'genOrient',defaultGenOrient,@islogical)
 
+parse(p,A,varargin{:});
+
+relabel = p.Results.relabel;
+genOrient = p.Results.genOrient;
+
+
 % Relabel from 1 to max number of grains
 if relabel
     for R=1:length(full3Ds)
