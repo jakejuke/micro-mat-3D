@@ -57,6 +57,9 @@ addParameter(p,'MoreViewOptions',defaultMoreViewOps,@isstruct);
 defaultPrint = 'on';
 addParameter(p,'Print',defaultPrint,@ischar);
 
+defaultSmooth = 'on';
+addParameter(p,'Smooth',defaultSmooth,@ischar);
+
 parse(p,g,full3Ds,fullGTs,varargin{:});
 
 goi = p.Results.goi;
@@ -68,6 +71,7 @@ axisOp = p.Results.axis;
 viewOp = p.Results.view;
 mViewOps = p.Results.MoreViewOptions;
 printOp = p.Results.Print;
+smoothOp = p.Results.Smooth;
 
 
 %% Set BoundingBox
@@ -144,9 +148,12 @@ p = zeros(length(g),1);
 f = figure;
 
 
-
 for J=1:length(g)
-    p(J) = patch(isosurface(smooth3(full3Ds{I}==g(J))));
+    if strcmpi(smoothOp,'on')
+        p(J) = patch(isosurface(smooth3(full3Ds{I}==g(J))));
+    else
+        p(J) = patch(isosurface(full3Ds{I}==g(J)));
+    end
     gColor = fullGTs(I).orient(g(J),:)*.5/minmaxR + 0.5;
     set(p(J),'FaceColor',gColor,'EdgeColor','none','AmbientStrength',0.2)
 end
@@ -228,7 +235,11 @@ for I=1:length(full3Ds)
 
     for J=1:length(g)
         if isfinite(fullGTs(I).labels(g(J)))
-            p(J) = patch(isosurface(smooth3(full3Ds{I}==g(J))));
+            if strcmpi(smoothOp,'on')
+                p(J) = patch(isosurface(smooth3(full3Ds{I}==g(J))));
+            else
+                p(J) = patch(isosurface(full3Ds{I}==g(J)));
+            end            
             gColor = fullGTs(I).orient(g(J),:)*.5/minmaxR + 0.5;
             set(p(J),'FaceColor',gColor,'EdgeColor','none','AmbientStrength',0.2)
         end
