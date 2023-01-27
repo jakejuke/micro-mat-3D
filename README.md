@@ -2,11 +2,16 @@
 
 Microstructure of Materials in 3D
 
-This repository contains scripts and functions (mostly in MATLAB) used to analyze and view 3D microstructural data. Much of the original code was written to analyze 3DXRD datasets that were recorded at SPring-8. This is why the prefix 'sp8' is used throughout the code.
+This repository contains scripts and functions (mostly for MATLAB) that can be used to analyze and view 3D microstructural data. Much of the original code was written to analyze 3DXRD datasets that were recorded at SPring-8. And this is why the prefix 'sp8' is used throughout the code. :)
 
 ## Workflow
 
-Import 3D data, measurement or simulation.
+Download this repository
+
+Start MATLAB and run `addmicromatfuns.m`
+
+Import 3D data, from measurement or simulation
+
 The data needs to be in the form:
 - a cell that contains one or more 3D matrices with unique grain labels (full3Ds)
 - a struct that stores info for each grain (fullGTs)
@@ -15,6 +20,15 @@ Initial Analysis
 - sp8_cleandata: fills any holes and determines basic grain parameters (e.g. gradius)
 - sp8_gbVoxelList: finds all GB voxels
 - sp8_gbAreaMat: takes voxel list and returns GB areas for all neighbors of every grain
+
+Most useful functions
+
+- imagesp8
+
+
+## Data Structure
+
+
 
 
 # Repository Structure
