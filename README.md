@@ -4,7 +4,7 @@ Microstructure of Materials in 3D
 
 This repository contains scripts and functions (mostly for MATLAB) that can be used to analyze and view 3D microstructural data. Much of the original code was written to analyze 3DXRD datasets that were recorded at SPring-8. And this is why the prefix 'sp8' is used throughout the code. :)
 
-## Workflow
+## Quick Start
 
 Download this repository
 
