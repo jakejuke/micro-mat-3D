@@ -52,6 +52,10 @@ codeDirs(5).name = 'xtras';
 codeDirs(5).path = strcat(baseDir,filesep,codeDirs(5).name);
 codeDirs(5).info = 'Potentially useful code that I did not want to delete';
 
+codeDirs(6).name = 'io';
+codeDirs(6).path = strcat(baseDir,filesep,codeDirs(6).name);
+codeDirs(6).info = 'Functions for importing/exporting data';
+
 for R = 1:length(codeDirs)
     addpath(codeDirs(R).path)
 end
