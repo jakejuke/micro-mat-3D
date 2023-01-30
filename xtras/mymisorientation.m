@@ -57,7 +57,7 @@ end
 % check input b
 if length(b(:)) == 3
     B = r2U(b);
-elseif length(a(:)) == 9
+elseif length(b(:)) == 9
     B = b;
 else
     error('Input should be Rodrigues vecotrs or rotation matrices')
