@@ -1,17 +1,26 @@
 function [sim3Ds, simGTs] = import_pfsim(orimap)
-%pf_sim_import Summary of this function goes here
-%   Detailed explanation goes here
+%import_pfsim imports output of Krill Group phase-field simulations
+%
+%   The function takes the orimap and asks the user to input simstep.mat
+%   files.
 %   
-%   Add vargin with:
+%   Examples
+%       [full3Ds, fullGTs] = import_pfsim('path/to/orimap')
+%
+%   7 Feb 2023  
+%   Jules Dake, Uni Ulm
+%
+
+%   Could add vargin with:
 %       - simsteps
 %       - path to orimap
 %       - path to files...
 %
 
-
 %% Import orientations
 
-% orimap = '/Users/jules/Documents/Matlab/micro-mat-3D/data/sim_import_test/orimap';
+clear
+orimap = '/Users/jules/Documents/Matlab/micro-mat-3D/data/sim_import_test/orimap';
 U_list = load(orimap);
 
 % Each row of orimap represents one grain
@@ -49,7 +58,7 @@ for I=1:numGrains
 end
 
 
-%% Import 3D grain ID matrices
+%% Get grain matrices from user
 
 wd = pwd;
 
@@ -68,27 +77,45 @@ elseif ischar(filename)
     fprintf('\nOnly one file selected!\n\n')
 else
     filenames = transpose(filename);
-    filenames = sort(filenames);
-    % BUG! %
-%     % Sorting doesn't work with 1000!
-%     str = 'lm_simstep100.mat'
-%     regexp(str,'\d*','Match')
+
+    %filenames = sort(filenames);
+    %%%%%%%%%%%%%%%%%%%%%%
+    %  BUG! and Bug fix  %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % File names are loaded in order that they are clicked. Sorting does
+    % not work either (e.g., sorting produces: 0, 1000, 200, 800). To get
+    % around this, I wrote the for loop below that extracts the last number
+    % in each file name -- this is typically the sim step.
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
+
 cd(pathname); clear filename
+
+
+% Sort files by the numbers at the end (sim steps)
+file_nums = nan(length(filenames),1);
+for I=1:length(filenames)
+    nums_in_filenames = regexp(filenames{I},'\d*','Match');
+    num_end_of_file = str2double(nums_in_filenames{end});
+    file_nums(I) = num_end_of_file;
+end
+
+[~, ind] = sort(file_nums);
 
 % Make a basic Grain Table
 simGTs = initBasicGTs();
-
 % Load 3D data matrices
 sim3Ds = cell(length(filenames),1);
 for I=1:length(filenames)
-    [~,varname] = fileparts(filenames{I});
-    % timestep is the file name
-    simGTs(I,1).timestep = varname;
-    % load 3D mat into cell 'sim3Ds'
-    tempS = load(filenames{I});
+    % Important to use ind(I) to get sorting correct!
+    [~,varname] = fileparts(filenames{ind(I)});
+    % Load 3D mat into cell 'sim3Ds'
+    tempS = load(filenames{ind(I)});
     eval(['temp3D = tempS.' varname ';'])
     sim3Ds{I} = sp8_fliprotsim(uint16(temp3D));
+    % The timestep is just the file name
+    simGTs(I,1).timestep = varname;
+    simGTs(I,1).time = file_nums(ind(I));
 end
 
 cd(wd)
