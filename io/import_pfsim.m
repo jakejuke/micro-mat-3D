@@ -20,7 +20,7 @@ function [sim3Ds, simGTs] = import_pfsim(orimap)
 
 %% Import orientations
 
-% % Uncomment the next two lines for fast testing
+% % Uncomment the next two lines for fast testing % %
 % clear
 % orimap = '/Users/jules/Documents/Matlab/micro-mat-3D/data/sim_import_test/orimap';
 
