@@ -15,12 +15,15 @@ function [sim3Ds, simGTs] = import_pfsim(orimap)
 %       - simsteps
 %       - path to orimap
 %       - path to files...
+%       - uigetfile doesn't let me add messages with MacOS...
 %
 
 %% Import orientations
 
-clear
-orimap = '/Users/jules/Documents/Matlab/micro-mat-3D/data/sim_import_test/orimap';
+% % Uncomment the next two lines for fast testing
+% clear
+% orimap = '/Users/jules/Documents/Matlab/micro-mat-3D/data/sim_import_test/orimap';
+
 U_list = load(orimap);
 
 % Each row of orimap represents one grain
