@@ -1,3 +1,12 @@
+% Script for importing and testing data for Jan Philipp's ML project
+% The data is stored here: /Users/jules/DREAM3DData/Synthetic_Gens/...
+% 
+% Ideally, I would like to do most of this in the CPP code of the
+% phase-field simulation!
+%
+% Jules Dake, 9 Feb 2023
+%
+
 %% Import data from Dream.3D through import wizzard
 
 T = synthGencube300d20out1;
@@ -18,6 +27,7 @@ for z=1:300
         end
     end
 end
+
 
 %%
 eulerAngles = [T.EulerAngles_0, T.EulerAngles_1, T.EulerAngles_2];
@@ -86,6 +96,7 @@ end
 
 writematrix(ops_Export,'synthGen_cube300_d20_out1_slice1_ops.txt','Delimiter','space')
 writematrix(gOri_slice(:,2:end),'synthGen_cube300_d20_out1_slice1_orimap.txt','Delimiter','space')
+
 
 %% Read in sim data
 simList = simStep18000;
