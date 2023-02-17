@@ -4,34 +4,40 @@
 % Ideally, I would like to do most of this in the CPP code of the
 % phase-field simulation!
 %
-% Jules Dake, 9 Feb 2023
+% Jules Dake, 16 Feb 2023
 %
 
 %% Import data from Dream.3D through import wizzard
 
-T = synthGencube300d20out1;
+% First run commented command here with right variable name
+% T = synthGencube300d20out1;
+
 grainIDs = T.FeatureIds;
 
 % Initilize parameters
-cellSize = 300;
+cellSize = 100;
 gMat = uint16(zeros(cellSize,cellSize,cellSize));
 
 
 %% Write grain id's to 3D matrix
 c = 0;
-for z=1:300
-    for y=1:300
-        for x=1:300
+for z=1:cellSize
+    for y=1:cellSize
+        for x=1:cellSize
             c = c + 1;
             gMat(x,y,z) = grainIDs(c);
         end
     end
 end
 
-
 %%
 eulerAngles = [T.EulerAngles_0, T.EulerAngles_1, T.EulerAngles_2];
 uniqueGrainIDs = unique(grainIDs);
+
+% Check if grains are numbered from 1 to max GrainID
+if ismember(uniqueGrainIDs,1:length(uniqueGrainIDs)) ~= max(uniqueGrainIDs)
+    warning('Check grain numbering! It may not be sequential')
+end
 
 rotmat = zeros(length(uniqueGrainIDs),10);
 
@@ -79,7 +85,7 @@ for p=1:length(gIDs_slice)
 end
 
 %% Write files for 2D PF simulation
-cellSize = 300;
+cellSize = 100;
 
 [X, Y] = meshgrid(1:cellSize,1:cellSize);
 maxPhase = 1;
@@ -94,9 +100,11 @@ for p = 1:cellSize
     end
 end
 
-writematrix(ops_Export,'synthGen_cube300_d20_out1_slice1_ops.txt','Delimiter','space')
-writematrix(gOri_slice(:,2:end),'synthGen_cube300_d20_out1_slice1_orimap.txt','Delimiter','space')
+% writematrix(ops_Export,'synthGen_cube300_d20_out1_slice1_ops.txt','Delimiter','space')
+% writematrix(gOri_slice(:,2:end),'synthGen_cube300_d20_out1_slice1_orimap.txt','Delimiter','space')
 
+writematrix(ops_Export,'synthGen_cube100_d10_pbc_out1_slice1_ops.txt','Delimiter','space')
+writematrix(gOri_slice(:,2:end),'synthGen_cube100_d10_pbc_out1_slice1_orimap.txt','Delimiter','space')
 
 %% Read in sim data
 simList = simStep18000;
@@ -167,6 +175,4 @@ imagesc(misorMap)
 axis off
 h = colorbar;
 h.Limits = [0 67.2]
-
-
 
