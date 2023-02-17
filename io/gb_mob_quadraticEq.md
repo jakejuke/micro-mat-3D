@@ -2,5 +2,6 @@
 
 Using the quadratic formula
 $$ f(x) = ax^2 + bx + c $$
-we can generate a simple function to relate the GB mobility to misorientation.
+we can create a simple function to relate the GB mobility to misorientation.
 
+![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
