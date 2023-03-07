@@ -122,8 +122,8 @@ load('/Users/jules/DREAM3DData/Synthetic_Gens/temp_simImport.mat')
 
 %% Calculate the misorientations for only the grains in the two slices
 
-s1 = simMat18000;
-s2 = simMat20000;
+s1 = simMat_0200;
+s2 = simMat_0400;
 
 gIDs = unique(s1);
 
@@ -175,4 +175,10 @@ imagesc(misorMap)
 axis off
 h = colorbar;
 h.Limits = [0 67.2]
+
+
+%%
+misorMap_8bit = 255/68*misorMap;
+misorMap_8bit = uint8(misorMap_8bit);
+imwrite(misorMap_8bit,'misorGray.png')
 
