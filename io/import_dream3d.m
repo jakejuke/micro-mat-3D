@@ -107,7 +107,7 @@ writematrix(ops_Export,'synthGen_cube100_d10_pbc_out1_slice1_ops.txt','Delimiter
 writematrix(gOri_slice(:,2:end),'synthGen_cube100_d10_pbc_out1_slice1_orimap.txt','Delimiter','space')
 
 %% Read in sim data
-simList = simStep18000;
+simList = lmpartitionstep400;
 simMat = uint16(zeros(cellSize,cellSize));
 
 for r=1:length(simList)
@@ -122,8 +122,8 @@ load('/Users/jules/DREAM3DData/Synthetic_Gens/temp_simImport.mat')
 
 %% Calculate the misorientations for only the grains in the two slices
 
-s1 = simMat_0200;
-s2 = simMat_0400;
+s1 = simMat_0202;
+s2 = simMat_0402;
 
 gIDs = unique(s1);
 
@@ -180,5 +180,5 @@ h.Limits = [0 67.2]
 %%
 misorMap_8bit = 255/68*misorMap;
 misorMap_8bit = uint8(misorMap_8bit);
-imwrite(misorMap_8bit,'misorGray.png')
+imwrite(misorMap_8bit,'misorGray_testExport3.png')
 
