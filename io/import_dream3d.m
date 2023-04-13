@@ -107,8 +107,8 @@ writematrix(ops_Export,'synthGen_cube100_d10_pbc_out1_slice1_ops.txt','Delimiter
 writematrix(gOri_slice(:,2:end),'synthGen_cube100_d10_pbc_out1_slice1_orimap.txt','Delimiter','space')
 
 %% Read in sim data
-simList = lmpartitionstep400;
-simMat = uint16(zeros(cellSize,cellSize));
+%simList = lmpartitionstep400;
+simMat = uint16(zeros(sqrt(length(simList)),sqrt(length(simList))));
 
 for r=1:length(simList)
     simMat(simList(r,1),simList(r,2)) = simList(r,3);
