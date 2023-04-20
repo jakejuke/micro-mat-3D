@@ -66,7 +66,7 @@ end
 wd = pwd;
 
 % To speed up selection, you can hard code to a folder with pf sim output
-cd('/Users/jules/Documents/Matlab/micro-mat-3D/data/sim_import_test')
+%cd('/Users/jules/Documents/Matlab/micro-mat-3D/data/sim_import_test')
 
 % Ask user to select 3D data files
 [filename, pathname, filterindex] = uigetfile('*.*', ...

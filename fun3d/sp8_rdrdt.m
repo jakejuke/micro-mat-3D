@@ -136,8 +136,12 @@ else % use all (mixed)
 end
 
 %% Remove 'bad' grains
-badGrains = any(horzcat(fullGTs.badGrain),2);
-R(badGrains,:) = NaN;
+if any(contains(fieldnames(fullGTs),'badGrain'))
+    badGrains = any(horzcat(fullGTs.badGrain),2);
+    R(badGrains,:) = NaN;
+else
+    warning('No bad grains detected, skipping bad grain removal')
+end
 % % Could also remove surface grains like this:
 % surfGs = horzcat(fullGTs.surfGrain);
 % R(surfGs) = NaN;
