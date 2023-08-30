@@ -34,8 +34,7 @@ addParameter(p,'goi',defaultGOI,@isnumeric);
 defaultMinMaxR = (sqrt(2)-1);
 addParameter(p,'minmaxR',defaultMinMaxR,@isnumeric);
 
-%defaultPath = '~/Desktop/';
-defaultPath = pwd;
+defaultPath = '~/Desktop/';
 addParameter(p,'path',defaultPath,@ischar);
 
 defaultSuffix = '_3D';
