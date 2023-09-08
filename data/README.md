@@ -5,8 +5,8 @@ Some example data files are provided here.
 # Data Structure
 
 Generally, there are two arrays for each data set:
-1. a **cell array** containing labelled 3D data and
-2. a **structure array** containing info and grain stats.
+1. A **cell array** containing labelled 3D data and
+2. A **structure array** containing info and grain stats.
 
 
 ## Labelled 3D Data (Cell Arrays)
@@ -20,10 +20,26 @@ Each cell contains a 3D matrix with dimensions of the sample volume. For the Bla
 
 View of the cell array *full3Ds* for the Black Hole specimen in Matlab.
 
-## Grain and Time Step Info (Structure Arrays)
+## Grain and Time-Step Info (Structure Arrays)
 
-Info about the grains is stored in a structure.
+Info about the grains is stored in a structure array. The length of the structure array is equivalent to the number of time steps. A lot of the analysis code can be run without loading the 3D data, because many parameters like grain size, neighbor grains, boundary voxels, etc. are stored in the fields of this structure. To access the grain radii for time step 2, type: `fullGTs(2).gradius`
 
+![Black Hole bh cell array full3Ds](/assets/images/bh_example_fullGTs.png)
+
+View of the structure array *fullGTs* for the Black Hole specimen in Matlab.
+
+### Field descriptions
+
+Hopefully the field names are somewhat self-explanatory, but here is a short list of the more important fields:
+- timestep: time step name (char)
+- labels: N-by-1 array of unique grain labels (double)
+- orient: N-by-3 array of Rodrigues vectors (double)
+- centroid: N-by-3 array of x, y, z positions of each grain's center of mass (double)
+- gradius: N-by-1 array of grain radii (double)
+- time: annealing time (double)
+- badGrain: indicates grains that touch the very top/bottom of the sample volume (logical)
+- gbArea: N-by-1 array number of boundary voxels (double)
+- gbMat: N+1-by-N+1 matrix with shared GB areas (double) **Add more info/image**
 
 
 # Naming Conventions
