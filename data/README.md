@@ -24,6 +24,8 @@ View of the cell array *full3Ds* for the Black Hole specimen in Matlab.
 
 Info about the grains is stored in a structure array. The length of the structure array is equivalent to the number of time steps. A lot of the analysis code can be run without loading the 3D data, because many parameters like grain size, neighbor grains, boundary voxels, etc. are stored in the fields of this structure. To access the grain radii for time step 2, type: `fullGTs(2).gradius`
 
+(How can I add verticle space before images?)
+
 ![Black Hole bh cell array full3Ds](/assets/images/bh_example_fullGTs.png)
 
 View of the structure array *fullGTs* for the Black Hole specimen in Matlab.
