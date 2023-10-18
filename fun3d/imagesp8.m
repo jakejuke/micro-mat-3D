@@ -11,7 +11,7 @@ function imagesp8(slice,grainTable,varargin)
 %               imagejd(full3D(:,:,250),fullGT)
 %
 % Jules Dake, Uni Ulm, June 2014
-% 
+% test
 
 
 %% Parse input variables
