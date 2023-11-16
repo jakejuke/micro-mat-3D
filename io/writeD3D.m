@@ -7,9 +7,8 @@
 clear
 path2mat = '/Users/jules/Documents/Matlab/micro-mat-3D/data/MOUT_bhAll_relabelled.mat';
 
-load(path2mat,...
-     'full3Ds', ...
-     'fullGTs')
+% Should load reg3Ds for calculations of exchanged volume
+load(path2mat, 'full3Ds', 'reg3Ds', 'fullGTs')
 
 clear path2mat
 initVars = who;
@@ -21,7 +20,7 @@ initVars{end+1} = 'initVars';
 
 %% Set initial variables
 
-t = 1; % time step
+t = 2; % time step
 
 f_name = 'BH400_quats.txt';
 f_path = '/Users/jules/Documents/Matlab/';

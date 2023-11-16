@@ -2,12 +2,19 @@
 
 clear
 load('/Users/jules/Documents/Matlab/micro-mat-3D/data/MOUT_bhAll_relabelled.mat', ...
-     'fullGTs', 'full3Ds')
+     'fullGTs', 'reg3Ds')
 
 %% Time step
-ts = 1;
+ts = 4;
+
 fullGT = fullGTs(ts);
-full3D = full3Ds{ts};
+
+% For calculations of exchanged volume, we need to use reg. data
+if ts > 1
+    full3D = reg3Ds{ts};
+else
+    full3D = full3Ds{ts};
+end
 
 clearvars -except fullGT full3D
 
